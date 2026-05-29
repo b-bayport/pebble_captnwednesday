@@ -1,0 +1,9 @@
+build/
+.lock-waf_*
+.wafpickle-*
+*.pbw
+node_modules/
+.DS_Store
+*.swp
+*:Zone.Identifier
+.claude/settings.local.json

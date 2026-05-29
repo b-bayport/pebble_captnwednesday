@@ -1,0 +1,54 @@
+{
+  "name": "pebble-captnwednesday",
+  "author": "bayport",
+  "version": "1.0.0",
+  "keywords": ["pebble-watchface"],
+  "private": true,
+  "dependencies": {},
+  "pebble": {
+    "displayName": "Captain Wednesday",
+    "uuid": "d08edaa1-ec42-40ab-9b86-cea834fefb0a",
+    "sdkVersion": "3",
+    "enableMultiJS": true,
+    "targetPlatforms": [
+      "emery"
+    ],
+    "watchapp": {
+      "watchface": true
+    },
+    "messageKeys": [
+      "TEMPERATURE"
+    ],
+    "resources": {
+      "menuIcon": "",
+      "media": [
+        {
+          "type": "font",
+          "name": "FONT_TINTIN_TIME_36",
+          "file": "fonts/Tintin_Dialogue.ttf",
+          "characterRegex": "[0-9: APM]"
+        },
+        {
+          "type": "font",
+          "name": "FONT_TINTIN_LARGE_16",
+          "file": "fonts/Tintin_Dialogue.ttf"
+        },
+        {
+          "type": "font",
+          "name": "FONT_TINTIN_DATE_16",
+          "file": "fonts/Tintin_Dialogue.ttf"
+        },
+        {
+          "type": "font",
+          "name": "FONT_TINTIN_SMALL_14",
+          "file": "fonts/Tintin_Dialogue.ttf"
+        },
+        {
+          "type": "bitmap",
+          "name": "IMAGE_BACKGROUND",
+          "file": "images/captnwednesday.png"
+        }
+      ]
+    }
+  }
+}
