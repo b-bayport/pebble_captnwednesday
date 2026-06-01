@@ -6,10 +6,12 @@ function fetchWeather() {
     try {
       var data = JSON.parse(this.responseText);
       var tempF = parseInt(data.current_condition[0].temp_F, 10);
+      var tempC = parseInt(data.current_condition[0].temp_C, 10);
       var msg = {};
-      msg[keys.TEMPERATURE] = tempF;
+      msg[keys.TEMPERATURE_F] = tempF;
+      msg[keys.TEMPERATURE_C] = tempC;
       Pebble.sendAppMessage(msg,
-        function() { console.log('Temp sent: ' + tempF + 'F'); },
+        function() { console.log('Temp sent: ' + tempF + 'F / ' + tempC + 'C'); },
         function(e) { console.log('Send error: ' + JSON.stringify(e)); }
       );
     } catch(e) {
@@ -22,4 +24,5 @@ function fetchWeather() {
 
 Pebble.addEventListener('ready', function() {
   fetchWeather();
+  setInterval(fetchWeather, 1800000);
 });

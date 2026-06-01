@@ -17,7 +17,8 @@
       "watchface": true
     },
     "messageKeys": [
-      "TEMPERATURE"
+      "TEMPERATURE_F",
+      "TEMPERATURE_C"
     ],
     "resources": {
       "menuIcon": "",

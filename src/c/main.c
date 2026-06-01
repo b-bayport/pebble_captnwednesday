@@ -1,7 +1,10 @@
 #include <pebble.h>
 
-#ifndef MESSAGE_KEY_TEMPERATURE
-extern uint32_t MESSAGE_KEY_TEMPERATURE;
+#ifndef MESSAGE_KEY_TEMPERATURE_F
+extern uint32_t MESSAGE_KEY_TEMPERATURE_F;
+#endif
+#ifndef MESSAGE_KEY_TEMPERATURE_C
+extern uint32_t MESSAGE_KEY_TEMPERATURE_C;
 #endif
 
 static Window *s_window;
@@ -43,9 +46,12 @@ static const char *s_month_names[] = {
 
 // TEMPERATURE HANDLER: receives weather updates from phone; updates temp text layer
 static void prv_inbox_handler(DictionaryIterator *iter, void *context) {
-  Tuple *temp_t = dict_find(iter, MESSAGE_KEY_TEMPERATURE);
+  bool use_metric = health_service_get_measurement_system_for_display(HealthMetricWalkedDistanceMeters) == MeasurementSystemMetric;
+  uint32_t key = use_metric ? MESSAGE_KEY_TEMPERATURE_C : MESSAGE_KEY_TEMPERATURE_F;
+  const char *unit = use_metric ? "'C" : "'F";
+  Tuple *temp_t = dict_find(iter, key);
   if (temp_t) {
-    snprintf(s_temp_buf, sizeof(s_temp_buf), "%d'F", (int)temp_t->value->int32);
+    snprintf(s_temp_buf, sizeof(s_temp_buf), "%d%s", (int)temp_t->value->int32, unit);
     text_layer_set_text(s_temp_layer, s_temp_buf);
   }
 }
@@ -222,7 +228,7 @@ static void prv_window_load(Window *window) {
   text_layer_set_font(s_temp_layer, s_font_date);
   text_layer_set_text_alignment(s_temp_layer, GTextAlignmentLeft);
   text_layer_set_background_color(s_temp_layer, GColorClear);
-  text_layer_set_text(s_temp_layer, "--F");
+  text_layer_set_text(s_temp_layer, "--");
   layer_add_child(root, text_layer_get_layer(s_temp_layer));
 
   // Time + AM/PM: single custom layer; draw proc measures time width and places AM/PM after it
